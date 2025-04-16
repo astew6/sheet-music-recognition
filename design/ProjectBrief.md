@@ -32,3 +32,4 @@
 * As a music teacher Mr. Emond wants to be able to adjust crop, rotate, brightness, and contrast of photos within the app, so the need for an external picture editing program is eliminated.
 * As a developer Alexander wants to build the application front end and the image editor so users can interact with the program.
 * As a developer Sarvesh wants to develop the computer vision backend so that the application can consistantly recognise sheet music.
+* 
