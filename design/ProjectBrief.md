@@ -11,7 +11,7 @@
     * .net Frontend
     * Editor Backends
 * Sarvesh
-    * CV Backend
+    * Computer Vision Backend
 
 ### Target Audience
 * individuals working with sheetmusic who need to regulary digitize their music in an editable format
