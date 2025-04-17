@@ -42,6 +42,8 @@
             exportMusicXMLButton = new Button();
             outputFileButton = new Button();
             outputPathLabel = new Label();
+            openFileDialog1 = new OpenFileDialog();
+            saveFileDialog1 = new SaveFileDialog();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -117,7 +119,7 @@
             analysisProgressBar.Name = "analysisProgressBar";
             analysisProgressBar.Size = new Size(418, 29);
             analysisProgressBar.TabIndex = 2;
-            analysisProgressBar.Value = 46;
+            analysisProgressBar.Value = 72;
             // 
             // analyzeButton
             // 
@@ -169,6 +171,7 @@
             exportMusicXMLButton.TabIndex = 1;
             exportMusicXMLButton.Text = "Export MusicXML";
             exportMusicXMLButton.UseVisualStyleBackColor = true;
+            exportMusicXMLButton.Click += exportMusicXMLButton_Click;
             // 
             // outputFileButton
             // 
@@ -177,7 +180,7 @@
             outputFileButton.Name = "outputFileButton";
             outputFileButton.Size = new Size(207, 81);
             outputFileButton.TabIndex = 0;
-            outputFileButton.Text = "Output File";
+            outputFileButton.Text = "Output File Path";
             outputFileButton.UseVisualStyleBackColor = true;
             outputFileButton.Click += button2_Click;
             // 
@@ -190,6 +193,18 @@
             outputPathLabel.Size = new Size(420, 17);
             outputPathLabel.TabIndex = 4;
             outputPathLabel.Text = "Output Path:";
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.Filter = "image files (*.png)|*.png|image files (*.jpg)|*.jpg";
+            // 
+            // saveFileDialog1
+            // 
+            saveFileDialog1.DefaultExt = "musicxml";
+            saveFileDialog1.Filter = "musicxml files (*.musicxml)|*.musicxml";
+            saveFileDialog1.SupportMultiDottedExtensions = true;
+            saveFileDialog1.Title = "Save File As";
             // 
             // sheetMusicToMusicXML
             // 
@@ -228,5 +243,7 @@
         private Button exportMusicXMLButton;
         private Button outputFileButton;
         private Label outputPathLabel;
+        private OpenFileDialog openFileDialog1;
+        private SaveFileDialog saveFileDialog1;
     }
 }
