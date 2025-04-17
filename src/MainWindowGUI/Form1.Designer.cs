@@ -34,10 +34,10 @@
             uploadPictureButton = new Button();
             inputPathLabel = new Label();
             panel2 = new Panel();
+            analysisProgressBar = new ProgressBar();
             analyzeButton = new Button();
             annotateButton = new Button();
             progressIndicatorLabel = new Label();
-            analysisProgressBar = new ProgressBar();
             panel3 = new Panel();
             exportMusicXMLButton = new Button();
             outputFileButton = new Button();
@@ -77,6 +77,7 @@
             reviewEditButton.TabIndex = 1;
             reviewEditButton.Text = "Review/Edit";
             reviewEditButton.UseVisualStyleBackColor = true;
+            reviewEditButton.Click += reviewEditButton_Click;
             // 
             // uploadPictureButton
             // 
@@ -95,25 +96,33 @@
             inputPathLabel.Location = new Point(1, 81);
             inputPathLabel.Margin = new Padding(0);
             inputPathLabel.Name = "inputPathLabel";
-            inputPathLabel.Size = new Size(420, 17);
+            inputPathLabel.Size = new Size(420, 18);
             inputPathLabel.TabIndex = 4;
             inputPathLabel.Text = "Input Path:";
             // 
             // panel2
             // 
+            panel2.Controls.Add(analysisProgressBar);
             panel2.Controls.Add(analyzeButton);
             panel2.Controls.Add(annotateButton);
             panel2.Controls.Add(progressIndicatorLabel);
-            panel2.Controls.Add(analysisProgressBar);
             panel2.Location = new Point(12, 165);
             panel2.Name = "panel2";
-            panel2.Size = new Size(426, 135);
+            panel2.Size = new Size(426, 124);
             panel2.TabIndex = 2;
+            // 
+            // analysisProgressBar
+            // 
+            analysisProgressBar.Location = new Point(3, 3);
+            analysisProgressBar.Name = "analysisProgressBar";
+            analysisProgressBar.Size = new Size(418, 29);
+            analysisProgressBar.TabIndex = 2;
+            analysisProgressBar.Value = 46;
             // 
             // analyzeButton
             // 
             analyzeButton.Font = new Font("Yu Gothic", 15F);
-            analyzeButton.Location = new Point(3, 49);
+            analyzeButton.Location = new Point(3, 43);
             analyzeButton.Name = "analyzeButton";
             analyzeButton.Size = new Size(207, 81);
             analyzeButton.TabIndex = 0;
@@ -123,7 +132,7 @@
             // annotateButton
             // 
             annotateButton.Font = new Font("Yu Gothic", 15F);
-            annotateButton.Location = new Point(216, 49);
+            annotateButton.Location = new Point(216, 43);
             annotateButton.Name = "annotateButton";
             annotateButton.Size = new Size(207, 81);
             annotateButton.TabIndex = 1;
@@ -133,7 +142,7 @@
             // progressIndicatorLabel
             // 
             progressIndicatorLabel.Font = new Font("Segoe UI", 8F);
-            progressIndicatorLabel.Location = new Point(1, 35);
+            progressIndicatorLabel.Location = new Point(1, 30);
             progressIndicatorLabel.Margin = new Padding(0);
             progressIndicatorLabel.Name = "progressIndicatorLabel";
             progressIndicatorLabel.Size = new Size(420, 20);
@@ -141,20 +150,12 @@
             progressIndicatorLabel.Text = "Progress";
             progressIndicatorLabel.Click += label2_Click;
             // 
-            // analysisProgressBar
-            // 
-            analysisProgressBar.Location = new Point(3, 3);
-            analysisProgressBar.Name = "analysisProgressBar";
-            analysisProgressBar.Size = new Size(420, 29);
-            analysisProgressBar.TabIndex = 2;
-            analysisProgressBar.Value = 46;
-            // 
             // panel3
             // 
             panel3.Controls.Add(exportMusicXMLButton);
             panel3.Controls.Add(outputFileButton);
             panel3.Controls.Add(outputPathLabel);
-            panel3.Location = new Point(12, 306);
+            panel3.Location = new Point(12, 295);
             panel3.Name = "panel3";
             panel3.Size = new Size(426, 99);
             panel3.TabIndex = 5;
