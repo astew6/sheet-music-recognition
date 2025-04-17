@@ -24,6 +24,7 @@
     <Compile Include="recognition.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="alexs_music.jpg" />
     <Content Include="tempFile.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
