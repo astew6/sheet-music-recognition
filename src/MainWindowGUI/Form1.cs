@@ -21,5 +21,10 @@ namespace MainWindowGUI
         {
 
         }
+
+        private void uploadPictureButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

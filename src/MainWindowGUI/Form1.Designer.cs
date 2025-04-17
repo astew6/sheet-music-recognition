@@ -87,6 +87,7 @@
             uploadPictureButton.TabIndex = 0;
             uploadPictureButton.Text = "Upload Picture";
             uploadPictureButton.UseVisualStyleBackColor = true;
+            uploadPictureButton.Click += uploadPictureButton_Click;
             // 
             // inputPathLabel
             // 
@@ -198,6 +199,8 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "sheetMusicToMusicXML";
             Text = "Sheet Music to MusicXML";
             Load += Form1_Load;
