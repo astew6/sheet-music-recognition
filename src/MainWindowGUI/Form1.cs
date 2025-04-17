@@ -19,15 +19,26 @@ namespace MainWindowGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                outputPathLabel.Text = saveFileDialog1.FileName;
+            }
         }
 
         private void uploadPictureButton_Click(object sender, EventArgs e)
         {
-
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                inputPathLabel.Text = openFileDialog1.FileName;
+            }
         }
 
         private void reviewEditButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exportMusicXMLButton_Click(object sender, EventArgs e)
         {
 
         }
