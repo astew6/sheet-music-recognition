@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainWindowGUI", "src\MainWindowGUI\MainWindowGUI.csproj", "{755396C1-F873-41CE-8F1F-9AE2569DDD9A}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "recognition", "src\recognition\recognition.pyproj", "{5B7121B9-823A-43B2-A66C-2BA9B241F9C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +19,14 @@ Global
 		{755396C1-F873-41CE-8F1F-9AE2569DDD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{755396C1-F873-41CE-8F1F-9AE2569DDD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{755396C1-F873-41CE-8F1F-9AE2569DDD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7121B9-823A-43B2-A66C-2BA9B241F9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7121B9-823A-43B2-A66C-2BA9B241F9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B7121B9-823A-43B2-A66C-2BA9B241F9C3} = {3628C9CC-A827-4518-BCA2-4599599154B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47E0AB7E-F738-4650-A1E6-D3A818003BB7}
