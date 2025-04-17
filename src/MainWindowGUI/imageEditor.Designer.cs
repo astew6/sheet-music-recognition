@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(imageEditor));
-            pictureBox1 = new PictureBox();
+            image = new PictureBox();
             label1 = new Label();
             width = new TextBox();
             height = new TextBox();
@@ -40,19 +40,20 @@
             hScrollBar3 = new HScrollBar();
             label4 = new Label();
             saveButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // image
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(130, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(561, 645);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            image.Image = (Image)resources.GetObject("image.Image");
+            image.Image = Image.FromFile(Program.app.inputPath);
+            image.Location = new Point(130, 12);
+            image.Name = "image";
+            image.Size = new Size(561, 645);
+            image.SizeMode = PictureBoxSizeMode.StretchImage;
+            image.TabIndex = 0;
+            image.TabStop = false;
+            image.Click += pictureBox1_Click;
             // 
             // label1
             // 
@@ -70,6 +71,7 @@
             width.Name = "width";
             width.Size = new Size(100, 23);
             width.TabIndex = 2;
+            width.Text = image.Width.ToString();
             width.TextChanged += textBox1_TextChanged;
             // 
             // height
@@ -78,6 +80,7 @@
             height.Name = "height";
             height.Size = new Size(100, 23);
             height.TabIndex = 3;
+            height.Text = image.Height.ToString();
             // 
             // label2
             // 
@@ -162,21 +165,21 @@
             Controls.Add(height);
             Controls.Add(width);
             Controls.Add(label1);
-            Controls.Add(pictureBox1);
+            Controls.Add(image);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "imageEditor";
             ShowInTaskbar = false;
             Text = "imageEditor";
             Load += imageEditor_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)image).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
+        private PictureBox image;
         private Label label1;
         private TextBox width;
         private TextBox height;
