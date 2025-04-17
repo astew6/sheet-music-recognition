@@ -119,7 +119,7 @@
             analysisProgressBar.Name = "analysisProgressBar";
             analysisProgressBar.Size = new Size(418, 29);
             analysisProgressBar.TabIndex = 2;
-            analysisProgressBar.Value = 46;
+            analysisProgressBar.Value = 72;
             // 
             // analyzeButton
             // 
@@ -202,9 +202,9 @@
             // saveFileDialog1
             // 
             saveFileDialog1.DefaultExt = "musicxml";
+            saveFileDialog1.Filter = "musicxml files (*.musicxml)|*.musicxml";
             saveFileDialog1.SupportMultiDottedExtensions = true;
             saveFileDialog1.Title = "Save File As";
-            saveFileDialog1.Filter = "musicxml files (*.musicxml)|*.musicxml";
             // 
             // sheetMusicToMusicXML
             // 

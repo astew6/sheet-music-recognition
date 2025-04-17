@@ -19,17 +19,17 @@ namespace MainWindowGUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK) //opens the file dialog until it is dismissed
             {
-                outputPathLabel.Text = saveFileDialog1.FileName;
+                outputPathLabel.Text = saveFileDialog1.FileName; //sets the output file label to the path selected in the file dialog
             }
         }
 
         private void uploadPictureButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK) //opens the file dialog until it is dismissed
             {
-                inputPathLabel.Text = openFileDialog1.FileName;
+                inputPathLabel.Text = openFileDialog1.FileName; //sets the input file label to the path selected in the file dialog
             }
         }
 
