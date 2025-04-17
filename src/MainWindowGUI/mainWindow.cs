@@ -35,7 +35,13 @@ namespace MainWindowGUI
 
         private void reviewEditButton_Click(object sender, EventArgs e)
         {
-
+            using (var editor = new imageEditor())
+            {
+                editor.ShowDialog();
+                while (editor.DialogResult != DialogResult.OK)
+                {
+                }
+            }
         }
 
         private void exportMusicXMLButton_Click(object sender, EventArgs e)
