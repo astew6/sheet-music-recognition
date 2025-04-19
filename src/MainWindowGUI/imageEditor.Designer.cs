@@ -32,7 +32,7 @@
             label1 = new Label();
             topCropValue = new TextBox();
             label2 = new Label();
-            hScrollBar1 = new HScrollBar();
+            rotationScrollBar = new HScrollBar();
             hScrollBar2 = new HScrollBar();
             label3 = new Label();
             hScrollBar3 = new HScrollBar();
@@ -45,6 +45,7 @@
             label7 = new Label();
             leftCropValue = new TextBox();
             label8 = new Label();
+            rotationAngle = new TextBox();
             ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
@@ -88,19 +89,21 @@
             label2.TabIndex = 4;
             label2.Text = "Rotate";
             // 
-            // hScrollBar1
+            // rotationScrollBar
             // 
-            hScrollBar1.LargeChange = 1;
-            hScrollBar1.Location = new Point(12, 199);
-            hScrollBar1.Name = "hScrollBar1";
-            hScrollBar1.Size = new Size(100, 17);
-            hScrollBar1.TabIndex = 5;
-            hScrollBar1.Value = 50;
+            rotationScrollBar.LargeChange = 1;
+            rotationScrollBar.Location = new Point(12, 199);
+            rotationScrollBar.Maximum = 180;
+            rotationScrollBar.Minimum = -180;
+            rotationScrollBar.Name = "rotationScrollBar";
+            rotationScrollBar.Size = new Size(100, 17);
+            rotationScrollBar.TabIndex = 5;
+            rotationScrollBar.Scroll += hScrollBar1_Scroll;
             // 
             // hScrollBar2
             // 
             hScrollBar2.LargeChange = 1;
-            hScrollBar2.Location = new Point(12, 251);
+            hScrollBar2.Location = new Point(12, 278);
             hScrollBar2.Name = "hScrollBar2";
             hScrollBar2.Size = new Size(100, 17);
             hScrollBar2.TabIndex = 7;
@@ -110,7 +113,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic", 20F);
-            label3.Location = new Point(12, 216);
+            label3.Location = new Point(12, 243);
             label3.Name = "label3";
             label3.Size = new Size(91, 35);
             label3.TabIndex = 6;
@@ -119,7 +122,7 @@
             // hScrollBar3
             // 
             hScrollBar3.LargeChange = 1;
-            hScrollBar3.Location = new Point(12, 303);
+            hScrollBar3.Location = new Point(12, 330);
             hScrollBar3.Name = "hScrollBar3";
             hScrollBar3.Size = new Size(100, 17);
             hScrollBar3.TabIndex = 9;
@@ -129,7 +132,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Yu Gothic", 20F);
-            label4.Location = new Point(12, 268);
+            label4.Location = new Point(12, 295);
             label4.Name = "label4";
             label4.Size = new Size(74, 35);
             label4.TabIndex = 8;
@@ -208,12 +211,22 @@
             label8.TabIndex = 17;
             label8.Text = "Left";
             // 
+            // rotationAngle
+            // 
+            rotationAngle.Location = new Point(12, 217);
+            rotationAngle.Name = "rotationAngle";
+            rotationAngle.Size = new Size(69, 23);
+            rotationAngle.TabIndex = 20;
+            rotationAngle.Text = "0";
+            rotationAngle.TextChanged += rotationAngle_TextChanged;
+            // 
             // imageEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(703, 669);
             ControlBox = false;
+            Controls.Add(rotationAngle);
             Controls.Add(rightCropValue);
             Controls.Add(label7);
             Controls.Add(leftCropValue);
@@ -227,7 +240,7 @@
             Controls.Add(label4);
             Controls.Add(hScrollBar2);
             Controls.Add(label3);
-            Controls.Add(hScrollBar1);
+            Controls.Add(rotationScrollBar);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(image);
@@ -248,7 +261,7 @@
         private Label label1;
         private TextBox topCropValue;
         private Label label2;
-        private HScrollBar hScrollBar1;
+        private HScrollBar rotationScrollBar;
         private HScrollBar hScrollBar2;
         private Label label3;
         private HScrollBar hScrollBar3;
@@ -261,5 +274,6 @@
         private Label label7;
         private TextBox leftCropValue;
         private Label label8;
+        private TextBox rotationAngle;
     }
 }

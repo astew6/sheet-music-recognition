@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +13,11 @@ namespace MainWindowGUI
 {
     public partial class imageEditor : Form
     {
+        private Image originalImage;
         public imageEditor()
         {
             InitializeComponent();
+            originalImage = image.Image;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -24,16 +27,7 @@ namespace MainWindowGUI
 
         private void topCropValue_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                Bitmap original = new Bitmap(Program.app.inputPath); //gets the original image
-
-                Rectangle cropRect = new Rectangle(0 + int.Parse(leftCropValue.Text), int.Parse(topCropValue.Text), original.Width - int.Parse(leftCropValue.Text) - int.Parse(rightCropValue.Text), original.Height - int.Parse(topCropValue.Text) - int.Parse(bottomCropValue.Text)); //creates a rectangle the size and location of the newly cropped image taking into account all the other cropping values
-                Bitmap cropped = original.Clone(cropRect, original.PixelFormat); //creates the newly cropped image
-                image.Image = cropped; //sets the image frame to display the cropped image
-                original.Dispose();
-            }
-            catch { }
+            updateImageEdit();
         }
 
         private void imageEditor_Load(object sender, EventArgs e)
@@ -49,47 +43,84 @@ namespace MainWindowGUI
 
         private void leftCropValue_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                int cropSize = int.Parse(leftCropValue.Text); //gets the crop size of the image from the text field
-                Bitmap original = new Bitmap(Program.app.inputPath); //gets the original image
-
-                Rectangle cropRect = new Rectangle(0 + int.Parse(leftCropValue.Text), int.Parse(topCropValue.Text), original.Width - int.Parse(leftCropValue.Text) - int.Parse(rightCropValue.Text), original.Height - int.Parse(topCropValue.Text) - int.Parse(bottomCropValue.Text)); //creates a rectangle the size and location of the newly cropped image taking into account all the other cropping values
-                Bitmap cropped = original.Clone(cropRect, original.PixelFormat); //creates the newly cropped image
-                image.Image = cropped; //sets the image frame to display the cropped image
-                original.Dispose();
-            }
-            catch { }
+            updateImageEdit();
         }
 
         private void bottomCropValue_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                int cropSize = int.Parse(bottomCropValue.Text); //gets the crop size of the image from the text field
-                Bitmap original = new Bitmap(Program.app.inputPath); //gets the original image
-
-                Rectangle cropRect = new Rectangle(0 + int.Parse(leftCropValue.Text), int.Parse(topCropValue.Text), original.Width - int.Parse(leftCropValue.Text) - int.Parse(rightCropValue.Text), original.Height - int.Parse(topCropValue.Text) - int.Parse(bottomCropValue.Text)); //creates a rectangle the size and location of the newly cropped image taking into account all the other cropping values
-                Bitmap cropped = original.Clone(cropRect, original.PixelFormat); //creates the newly cropped image
-                image.Image = cropped; //sets the image frame to display the cropped image
-                original.Dispose();
-            }
-            catch { }
+            updateImageEdit();
         }
 
         private void rightCropValue_TextChanged(object sender, EventArgs e)
         {
+            updateImageEdit();
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            updateImageEdit();
+            rotationAngle.Text = rotationScrollBar.Value.ToString();
+        }
+
+        private void rotationAngle_TextChanged(object sender, EventArgs e)
+        {
             try
             {
-                int cropSize = int.Parse(rightCropValue.Text); //gets the crop size of the image from the text field
-                Bitmap original = new Bitmap(Program.app.inputPath); //gets the original image
+                rotationScrollBar.Value = int.Parse(rotationAngle.Text);
+                updateImageEdit();
+            }
+            catch {}
+        }
+        private void updateImageEdit()
+        {
+            try
+            {
+                // Get crop values
+                int left = int.Parse(leftCropValue.Text);
+                int right = int.Parse(rightCropValue.Text);
+                int top = int.Parse(topCropValue.Text);
+                int bottom = int.Parse(bottomCropValue.Text);
 
-                Rectangle cropRect = new Rectangle(0 + int.Parse(leftCropValue.Text), int.Parse(topCropValue.Text), original.Width - int.Parse(leftCropValue.Text) - int.Parse(rightCropValue.Text), original.Height - int.Parse(topCropValue.Text) - int.Parse(bottomCropValue.Text)); //creates a rectangle the size and location of the newly cropped image taking into account all the other cropping values
-                Bitmap cropped = original.Clone(cropRect, original.PixelFormat); //creates the newly cropped image
-                image.Image = cropped; //sets the image frame to display the cropped image
+                // Clone original image
+                Bitmap original = new Bitmap(originalImage);
+
+                // Create a new bitmap for rotation (size will match the original)
+                Bitmap rotatedBmp = new Bitmap(original.Width, original.Height);
+                rotatedBmp.SetResolution(original.HorizontalResolution, original.VerticalResolution);
+
+                using (Graphics g = Graphics.FromImage(rotatedBmp))
+                {
+                    g.TranslateTransform(original.Width / 2f, original.Height / 2f);
+                    g.RotateTransform(rotationScrollBar.Value);
+                    g.TranslateTransform(-original.Width / 2f, -original.Height / 2f);
+
+                    g.DrawImage(original, new Point(0, 0));
+                }
+
+                // Define crop rectangle based on rotated image
+                Rectangle cropRect = new Rectangle(
+                    left,
+                    top,
+                    rotatedBmp.Width - left - right,
+                    rotatedBmp.Height - top - bottom
+                );
+
+                // Crop the rotated image
+                Bitmap cropped = rotatedBmp.Clone(cropRect, rotatedBmp.PixelFormat);
+
+                // Display final result
+                image.Image = cropped;
+
+                // Clean up
+                rotatedBmp.Dispose();
                 original.Dispose();
             }
-            catch { }
+            catch
+            {
+                // optional: log errors
+            }
         }
+
+
     }
 }
