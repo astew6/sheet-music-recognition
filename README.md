@@ -7,7 +7,13 @@ An application designed for the easy and automated transcripiton of a page of pa
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+        <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+        <a href="#getting-started">Getting Started</a>
+    </li>
+    <li>
+        <a href="#roadmap">Roadmap</a>
     </li>
   </ol>
 </details>
