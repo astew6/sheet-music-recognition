@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(imageEditor));
             image = new PictureBox();
             label1 = new Label();
-            width = new TextBox();
-            height = new TextBox();
+            topCropValue = new TextBox();
             label2 = new Label();
             hScrollBar1 = new HScrollBar();
             hScrollBar2 = new HScrollBar();
@@ -40,13 +38,18 @@
             hScrollBar3 = new HScrollBar();
             label4 = new Label();
             saveButton = new Button();
+            label5 = new Label();
+            bottomCropValue = new TextBox();
+            label6 = new Label();
+            rightCropValue = new TextBox();
+            label7 = new Label();
+            leftCropValue = new TextBox();
+            label8 = new Label();
             ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
             // image
             // 
-            image.Image = (Image)resources.GetObject("image.Image");
-            image.Image = Image.FromFile(Program.app.inputPath);
             image.Location = new Point(130, 12);
             image.Name = "image";
             image.Size = new Size(561, 645);
@@ -54,6 +57,7 @@
             image.TabIndex = 0;
             image.TabStop = false;
             image.Click += pictureBox1_Click;
+            image.Image = Image.FromFile(Program.app.inputPath);
             // 
             // label1
             // 
@@ -65,28 +69,20 @@
             label1.TabIndex = 1;
             label1.Text = "Crop";
             // 
-            // width
+            // topCropValue
             // 
-            width.Location = new Point(12, 47);
-            width.Name = "width";
-            width.Size = new Size(100, 23);
-            width.TabIndex = 2;
-            width.Text = image.Width.ToString();
-            width.TextChanged += textBox1_TextChanged;
-            // 
-            // height
-            // 
-            height.Location = new Point(12, 76);
-            height.Name = "height";
-            height.Size = new Size(100, 23);
-            height.TabIndex = 3;
-            height.Text = image.Height.ToString();
+            topCropValue.Location = new Point(55, 47);
+            topCropValue.Name = "topCropValue";
+            topCropValue.Size = new Size(69, 23);
+            topCropValue.TabIndex = 2;
+            topCropValue.Text = "0";
+            topCropValue.TextChanged += topCropValue_TextChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic", 20F);
-            label2.Location = new Point(12, 102);
+            label2.Location = new Point(12, 164);
             label2.Name = "label2";
             label2.Size = new Size(98, 35);
             label2.TabIndex = 4;
@@ -95,7 +91,7 @@
             // hScrollBar1
             // 
             hScrollBar1.LargeChange = 1;
-            hScrollBar1.Location = new Point(12, 137);
+            hScrollBar1.Location = new Point(12, 199);
             hScrollBar1.Name = "hScrollBar1";
             hScrollBar1.Size = new Size(100, 17);
             hScrollBar1.TabIndex = 5;
@@ -104,7 +100,7 @@
             // hScrollBar2
             // 
             hScrollBar2.LargeChange = 1;
-            hScrollBar2.Location = new Point(12, 189);
+            hScrollBar2.Location = new Point(12, 251);
             hScrollBar2.Name = "hScrollBar2";
             hScrollBar2.Size = new Size(100, 17);
             hScrollBar2.TabIndex = 7;
@@ -114,7 +110,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic", 20F);
-            label3.Location = new Point(12, 154);
+            label3.Location = new Point(12, 216);
             label3.Name = "label3";
             label3.Size = new Size(91, 35);
             label3.TabIndex = 6;
@@ -123,7 +119,7 @@
             // hScrollBar3
             // 
             hScrollBar3.LargeChange = 1;
-            hScrollBar3.Location = new Point(12, 241);
+            hScrollBar3.Location = new Point(12, 303);
             hScrollBar3.Name = "hScrollBar3";
             hScrollBar3.Size = new Size(100, 17);
             hScrollBar3.TabIndex = 9;
@@ -133,7 +129,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Yu Gothic", 20F);
-            label4.Location = new Point(12, 206);
+            label4.Location = new Point(12, 268);
             label4.Name = "label4";
             label4.Size = new Size(74, 35);
             label4.TabIndex = 8;
@@ -149,12 +145,83 @@
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(2, 50);
+            label5.Name = "label5";
+            label5.Size = new Size(27, 15);
+            label5.TabIndex = 13;
+            label5.Text = "Top";
+            // 
+            // bottomCropValue
+            // 
+            bottomCropValue.Location = new Point(55, 76);
+            bottomCropValue.Name = "bottomCropValue";
+            bottomCropValue.Size = new Size(69, 23);
+            bottomCropValue.TabIndex = 14;
+            bottomCropValue.Text = "0";
+            bottomCropValue.TextChanged += bottomCropValue_TextChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(2, 79);
+            label6.Name = "label6";
+            label6.Size = new Size(47, 15);
+            label6.TabIndex = 15;
+            label6.Text = "Bottom";
+            // 
+            // rightCropValue
+            // 
+            rightCropValue.Location = new Point(55, 134);
+            rightCropValue.Name = "rightCropValue";
+            rightCropValue.Size = new Size(69, 23);
+            rightCropValue.TabIndex = 18;
+            rightCropValue.Text = "0";
+            rightCropValue.TextChanged += rightCropValue_TextChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(2, 137);
+            label7.Name = "label7";
+            label7.Size = new Size(35, 15);
+            label7.TabIndex = 19;
+            label7.Text = "Right";
+            // 
+            // leftCropValue
+            // 
+            leftCropValue.Location = new Point(55, 105);
+            leftCropValue.Name = "leftCropValue";
+            leftCropValue.Size = new Size(69, 23);
+            leftCropValue.TabIndex = 16;
+            leftCropValue.Text = "0";
+            leftCropValue.TextChanged += leftCropValue_TextChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(2, 108);
+            label8.Name = "label8";
+            label8.Size = new Size(27, 15);
+            label8.TabIndex = 17;
+            label8.Text = "Left";
+            // 
             // imageEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(703, 669);
             ControlBox = false;
+            Controls.Add(rightCropValue);
+            Controls.Add(label7);
+            Controls.Add(leftCropValue);
+            Controls.Add(label8);
+            Controls.Add(bottomCropValue);
+            Controls.Add(label6);
+            Controls.Add(topCropValue);
+            Controls.Add(label5);
             Controls.Add(saveButton);
             Controls.Add(hScrollBar3);
             Controls.Add(label4);
@@ -162,8 +229,6 @@
             Controls.Add(label3);
             Controls.Add(hScrollBar1);
             Controls.Add(label2);
-            Controls.Add(height);
-            Controls.Add(width);
             Controls.Add(label1);
             Controls.Add(image);
             MaximizeBox = false;
@@ -181,8 +246,7 @@
 
         private PictureBox image;
         private Label label1;
-        private TextBox width;
-        private TextBox height;
+        private TextBox topCropValue;
         private Label label2;
         private HScrollBar hScrollBar1;
         private HScrollBar hScrollBar2;
@@ -190,5 +254,12 @@
         private HScrollBar hScrollBar3;
         private Label label4;
         private Button saveButton;
+        private Label label5;
+        private TextBox bottomCropValue;
+        private Label label6;
+        private TextBox rightCropValue;
+        private Label label7;
+        private TextBox leftCropValue;
+        private Label label8;
     }
 }

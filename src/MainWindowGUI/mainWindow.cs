@@ -4,6 +4,7 @@ namespace MainWindowGUI
     {
         public string inputPath;
         public string outputPath;
+        public imageEditor editor;
         public sheetMusicToMusicXML()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace MainWindowGUI
 
         private void reviewEditButton_Click(object sender, EventArgs e)
         {
-            using (var editor = new imageEditor())
+            using (editor = new imageEditor())
             {
                 editor.ShowDialog();
                 while (editor.DialogResult != DialogResult.OK) { }
