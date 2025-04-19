@@ -2,6 +2,8 @@ namespace MainWindowGUI
 {
     public partial class sheetMusicToMusicXML : Form
     {
+        public string inputPath;
+        public string outputPath;
         public sheetMusicToMusicXML()
         {
             InitializeComponent();
@@ -21,7 +23,8 @@ namespace MainWindowGUI
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) //opens the file dialog until it is dismissed
             {
-                outputPathLabel.Text = saveFileDialog1.FileName; //sets the output file label to the path selected in the file dialog
+                outputPath = saveFileDialog1.FileName;
+                outputPathLabel.Text = $"Output Path: {outputPath}"; //sets the output file label to the path selected in the file dialog
             }
         }
 
@@ -29,13 +32,18 @@ namespace MainWindowGUI
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK) //opens the file dialog until it is dismissed
             {
-                inputPathLabel.Text = openFileDialog1.FileName; //sets the input file label to the path selected in the file dialog
+                inputPath = openFileDialog1.FileName; //sets the input file directory variable to the path selected in the file dialog
+                inputPathLabel.Text = $"Input Path: {inputPath}"; //sets the input file label to the path selected in the file dialog
             }
         }
 
         private void reviewEditButton_Click(object sender, EventArgs e)
         {
-
+            using (var editor = new imageEditor())
+            {
+                editor.ShowDialog();
+                while (editor.DialogResult != DialogResult.OK) { }
+            }
         }
 
         private void exportMusicXMLButton_Click(object sender, EventArgs e)
