@@ -46,6 +46,8 @@
             leftCropValue = new TextBox();
             label8 = new Label();
             rotationAngle = new TextBox();
+            rotateLeftButton = new Button();
+            rotateRightButton = new Button();
             ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
@@ -220,12 +222,35 @@
             rotationAngle.Text = "0";
             rotationAngle.TextChanged += rotationAngle_TextChanged;
             // 
+            // rotateLeftButton
+            // 
+            rotateLeftButton.ForeColor = SystemColors.ControlText;
+            rotateLeftButton.Image = Properties.Resources.imageres_5344_1__Custom_;
+            rotateLeftButton.Location = new Point(83, 216);
+            rotateLeftButton.Name = "rotateLeftButton";
+            rotateLeftButton.Size = new Size(20, 23);
+            rotateLeftButton.TabIndex = 21;
+            rotateLeftButton.UseVisualStyleBackColor = true;
+            rotateLeftButton.Click += rotateLeftButton_Click;
+            // 
+            // rotateRightButton
+            // 
+            rotateRightButton.Image = Properties.Resources.imageres_5345_1__Custom_;
+            rotateRightButton.Location = new Point(104, 216);
+            rotateRightButton.Name = "rotateRightButton";
+            rotateRightButton.Size = new Size(20, 23);
+            rotateRightButton.TabIndex = 22;
+            rotateRightButton.UseVisualStyleBackColor = true;
+            rotateRightButton.Click += rotateRightButton_Click;
+            // 
             // imageEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(703, 669);
             ControlBox = false;
+            Controls.Add(rotateRightButton);
+            Controls.Add(rotateLeftButton);
             Controls.Add(rotationAngle);
             Controls.Add(rightCropValue);
             Controls.Add(label7);
@@ -275,5 +300,7 @@
         private TextBox leftCropValue;
         private Label label8;
         private TextBox rotationAngle;
+        private Button rotateLeftButton;
+        private Button rotateRightButton;
     }
 }

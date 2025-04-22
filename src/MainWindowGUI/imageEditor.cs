@@ -69,7 +69,7 @@ namespace MainWindowGUI
                 rotationScrollBar.Value = int.Parse(rotationAngle.Text);
                 updateImageEdit();
             }
-            catch {}
+            catch { }
         }
         private void updateImageEdit()
         {
@@ -121,6 +121,28 @@ namespace MainWindowGUI
             }
         }
 
+        private void rotateRightButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                rotationScrollBar.Value += 90;
+                rotationAngle.Text = $"{int.Parse(rotationAngle.Text) + 90}";
+                updateImageEdit();
+            }
+            catch { }
+        }
 
+        private void rotateLeftButton_Click(object sender, EventArgs e)
+        {
+            {
+                try
+                {
+                    rotationScrollBar.Value -= 90;
+                    rotationAngle.Text = $"{int.Parse(rotationAngle.Text) - 90}";
+                    updateImageEdit();
+                }
+                catch { }
+            }
+        }
     }
 }
