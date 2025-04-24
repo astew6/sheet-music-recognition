@@ -1,4 +1,6 @@
-﻿namespace MainWindowGUI
+﻿
+
+namespace MainWindowGUI
 {
     partial class imageEditor
     {
@@ -33,7 +35,7 @@
             topCropValue = new TextBox();
             label2 = new Label();
             rotationScrollBar = new HScrollBar();
-            hScrollBar2 = new HScrollBar();
+            brightScrollBar = new HScrollBar();
             label3 = new Label();
             hScrollBar3 = new HScrollBar();
             label4 = new Label();
@@ -48,6 +50,8 @@
             rotationAngle = new TextBox();
             rotateLeftButton = new Button();
             rotateRightButton = new Button();
+            brightnessValue = new TextBox();
+            contrastValue = new TextBox();
             ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
@@ -60,7 +64,6 @@
             image.TabIndex = 0;
             image.TabStop = false;
             image.Click += pictureBox1_Click;
-            image.Image = Image.FromFile(Program.app.inputPath);
             // 
             // label1
             // 
@@ -102,14 +105,15 @@
             rotationScrollBar.TabIndex = 5;
             rotationScrollBar.Scroll += hScrollBar1_Scroll;
             // 
-            // hScrollBar2
+            // brightScrollBar
             // 
-            hScrollBar2.LargeChange = 1;
-            hScrollBar2.Location = new Point(12, 278);
-            hScrollBar2.Name = "hScrollBar2";
-            hScrollBar2.Size = new Size(100, 17);
-            hScrollBar2.TabIndex = 7;
-            hScrollBar2.Value = 50;
+            brightScrollBar.LargeChange = 1;
+            brightScrollBar.Location = new Point(12, 278);
+            brightScrollBar.Minimum = -100;
+            brightScrollBar.Name = "brightScrollBar";
+            brightScrollBar.Size = new Size(100, 17);
+            brightScrollBar.TabIndex = 7;
+            brightScrollBar.Scroll += hScrollBar2_Scroll;
             // 
             // label3
             // 
@@ -124,7 +128,7 @@
             // hScrollBar3
             // 
             hScrollBar3.LargeChange = 1;
-            hScrollBar3.Location = new Point(12, 330);
+            hScrollBar3.Location = new Point(12, 359);
             hScrollBar3.Name = "hScrollBar3";
             hScrollBar3.Size = new Size(100, 17);
             hScrollBar3.TabIndex = 9;
@@ -134,7 +138,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Yu Gothic", 20F);
-            label4.Location = new Point(12, 295);
+            label4.Location = new Point(12, 324);
             label4.Name = "label4";
             label4.Size = new Size(74, 35);
             label4.TabIndex = 8;
@@ -243,12 +247,31 @@
             rotateRightButton.UseVisualStyleBackColor = true;
             rotateRightButton.Click += rotateRightButton_Click;
             // 
+            // brightnessValue
+            // 
+            brightnessValue.Location = new Point(12, 298);
+            brightnessValue.Name = "brightnessValue";
+            brightnessValue.Size = new Size(69, 23);
+            brightnessValue.TabIndex = 23;
+            brightnessValue.Text = "0";
+            brightnessValue.TextChanged += brightnessValue_TextChanged;
+            // 
+            // contrastValue
+            // 
+            contrastValue.Location = new Point(12, 379);
+            contrastValue.Name = "contrastValue";
+            contrastValue.Size = new Size(69, 23);
+            contrastValue.TabIndex = 24;
+            contrastValue.Text = "0";
+            // 
             // imageEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(703, 669);
             ControlBox = false;
+            Controls.Add(contrastValue);
+            Controls.Add(brightnessValue);
             Controls.Add(rotateRightButton);
             Controls.Add(rotateLeftButton);
             Controls.Add(rotationAngle);
@@ -263,7 +286,7 @@
             Controls.Add(saveButton);
             Controls.Add(hScrollBar3);
             Controls.Add(label4);
-            Controls.Add(hScrollBar2);
+            Controls.Add(brightScrollBar);
             Controls.Add(label3);
             Controls.Add(rotationScrollBar);
             Controls.Add(label2);
@@ -279,6 +302,10 @@
             ResumeLayout(false);
             PerformLayout();
         }
+        private void customInit()
+        {
+            image.Image = Image.FromFile(Program.app.inputPath);
+        }
 
         #endregion
 
@@ -287,7 +314,7 @@
         private TextBox topCropValue;
         private Label label2;
         private HScrollBar rotationScrollBar;
-        private HScrollBar hScrollBar2;
+        private HScrollBar brightScrollBar;
         private Label label3;
         private HScrollBar hScrollBar3;
         private Label label4;
@@ -302,5 +329,7 @@
         private TextBox rotationAngle;
         private Button rotateLeftButton;
         private Button rotateRightButton;
+        private TextBox brightnessValue;
+        private TextBox contrastValue;
     }
 }
