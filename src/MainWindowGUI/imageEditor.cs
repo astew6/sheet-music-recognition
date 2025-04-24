@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using System.Runtime.InteropServices;
+
 
 namespace MainWindowGUI
 {
@@ -17,6 +21,7 @@ namespace MainWindowGUI
         public imageEditor()
         {
             InitializeComponent();
+            customInit();
             originalImage = image.Image;
         }
 
@@ -69,22 +74,21 @@ namespace MainWindowGUI
                 rotationScrollBar.Value = int.Parse(rotationAngle.Text);
                 updateImageEdit();
             }
-            catch {}
+            catch { }
         }
         private void updateImageEdit()
         {
             try
             {
-                // Get crop values
                 int left = int.Parse(leftCropValue.Text);
                 int right = int.Parse(rightCropValue.Text);
                 int top = int.Parse(topCropValue.Text);
                 int bottom = int.Parse(bottomCropValue.Text);
+                int brightnessOffset = brightScrollBar.Value;
 
-                // Clone original image
                 Bitmap original = new Bitmap(originalImage);
 
-                // Create a new bitmap for rotation (size will match the original)
+                // ROTATE
                 Bitmap rotatedBmp = new Bitmap(original.Width, original.Height);
                 rotatedBmp.SetResolution(original.HorizontalResolution, original.VerticalResolution);
 
@@ -93,11 +97,9 @@ namespace MainWindowGUI
                     g.TranslateTransform(original.Width / 2f, original.Height / 2f);
                     g.RotateTransform(rotationScrollBar.Value);
                     g.TranslateTransform(-original.Width / 2f, -original.Height / 2f);
-
                     g.DrawImage(original, new Point(0, 0));
                 }
 
-                // Define crop rectangle based on rotated image
                 Rectangle cropRect = new Rectangle(
                     left,
                     top,
@@ -105,22 +107,83 @@ namespace MainWindowGUI
                     rotatedBmp.Height - top - bottom
                 );
 
-                // Crop the rotated image
                 Bitmap cropped = rotatedBmp.Clone(cropRect, rotatedBmp.PixelFormat);
 
-                // Display final result
-                image.Image = cropped;
+                // BRIGHTNESS — optimized version
+                Bitmap adjusted = new Bitmap(cropped.Width, cropped.Height, PixelFormat.Format24bppRgb);
+                Rectangle rect = new Rectangle(0, 0, cropped.Width, cropped.Height);
 
-                // Clean up
-                rotatedBmp.Dispose();
+                BitmapData srcData = cropped.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+                BitmapData dstData = adjusted.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+                int stride = srcData.Stride;
+                unsafe
+                {
+                    byte* srcPtr = (byte*)srcData.Scan0;
+                    byte* dstPtr = (byte*)dstData.Scan0;
+
+                    for (int y = 0; y < cropped.Height; y++)
+                    {
+                        for (int x = 0; x < cropped.Width * 3; x++) // 3 bytes per pixel (BGR)
+                        {
+                            int val = srcPtr[y * stride + x] + brightnessOffset;
+                            dstPtr[y * stride + x] = (byte)Math.Max(0, Math.Min(255, val));
+                        }
+                    }
+                }
+
+                cropped.UnlockBits(srcData);
+                adjusted.UnlockBits(dstData);
+
+                image.Image = adjusted;
+
+                // Cleanup
                 original.Dispose();
+                rotatedBmp.Dispose();
+                cropped.Dispose();
             }
             catch
             {
-                // optional: log errors
+                // Optional: error logging
             }
         }
 
 
+
+        private void rotateRightButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                rotationScrollBar.Value += 90;
+                rotationAngle.Text = $"{int.Parse(rotationAngle.Text) + 90}";
+                updateImageEdit();
+            }
+            catch { }
+        }
+
+        private void rotateLeftButton_Click(object sender, EventArgs e)
+        {
+            {
+                try
+                {
+                    rotationScrollBar.Value -= 90;
+                    rotationAngle.Text = $"{int.Parse(rotationAngle.Text) - 90}";
+                    updateImageEdit();
+                }
+                catch { }
+            }
+        }
+
+        private void hScrollBar2_Scroll(object sender, ScrollEventArgs e)
+        {
+            updateImageEdit();
+            brightnessValue.Text = brightScrollBar.Value.ToString();
+        }
+
+        private void brightnessValue_TextChanged(object sender, EventArgs e)
+        {
+            brightScrollBar.Value = int.Parse(brightnessValue.Text);
+            updateImageEdit();
+        }
     }
 }
