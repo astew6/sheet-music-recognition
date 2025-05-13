@@ -31,9 +31,10 @@ namespace MainWindowGUI
         private void InitializeComponent()
         {
             SaveButton = new Button();
-            image = new PictureBox();
             Zoom_In = new Button();
             Zoom_Out = new Button();
+            image = new PictureBox();
+            Identification_Button = new Button();
             ((System.ComponentModel.ISupportInitialize)image).BeginInit();
             SuspendLayout();
             // 
@@ -46,16 +47,6 @@ namespace MainWindowGUI
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
             SaveButton.Click += SaveButton_Click;
-            // 
-            // image
-            // 
-            image.Location = new Point(215, 12);
-            image.Name = "image";
-            image.Size = new Size(452, 567);
-            image.SizeMode = PictureBoxSizeMode.Zoom;
-            image.TabIndex = 1;
-            image.TabStop = false;
-            image.Click += pictureBox1_Click;
             // 
             // Zoom_In
             // 
@@ -77,16 +68,41 @@ namespace MainWindowGUI
             Zoom_Out.UseVisualStyleBackColor = true;
             Zoom_Out.Click += Zoom_Out_Click;
             // 
+            // image
+            // 
+            image.Location = new Point(183, 12);
+            image.Name = "image";
+            image.Size = new Size(640, 626);
+            image.SizeMode = PictureBoxSizeMode.Zoom;
+            image.TabIndex = 1;
+            image.TabStop = false;
+            image.Click += pictureBox1_Click;
+            // 
+            // Identification_Button
+            // 
+            Identification_Button.Location = new Point(12, 309);
+            Identification_Button.Name = "Identification_Button";
+            Identification_Button.Size = new Size(135, 54);
+            Identification_Button.TabIndex = 4;
+            Identification_Button.Text = "Add Identification";
+            Identification_Button.UseVisualStyleBackColor = true;
+            Identification_Button.Click += Identification_Button_Click;
+            // 
             // annotationGui
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(686, 603);
+            ClientSize = new Size(835, 650);
+            ControlBox = false;
+            Controls.Add(Identification_Button);
+            Controls.Add(image);
             Controls.Add(Zoom_Out);
             Controls.Add(Zoom_In);
-            Controls.Add(image);
             Controls.Add(SaveButton);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "annotationGui";
+            ShowInTaskbar = false;
             Text = "annotationGui";
             Load += annotationGui_Load;
             ((System.ComponentModel.ISupportInitialize)image).EndInit();
@@ -98,10 +114,16 @@ namespace MainWindowGUI
             image.Image = Image.FromFile(Program.app.inputPath);
         }
 
+        private Size getImageFieldSize()
+        {
+            return image.Size;
+        }
+
         #endregion
         private Button SaveButton;
-        private PictureBox image;
         private Button Zoom_In;
         private Button Zoom_Out;
+        private PictureBox image;
+        private Button Identification_Button;
     }
 }
