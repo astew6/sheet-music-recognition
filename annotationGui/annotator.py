@@ -8,7 +8,7 @@ class Annotator():
         self.original_image: pygame.Surface = pygame.image.load(image).convert_alpha()
         self.zoom: float = 1.0
         
-        self.cropRect: pygame.Rect = pygame.rect.Rect(bounds[0],bounds[1],bounds[2],bounds[3])
+        self.cropRect: pygame.Rect = pygame.rect.Rect(*bounds)
         self.draw_rect: pygame.Rect = pygame.Rect(0, 0, self.cropRect.width, self.cropRect.height)
 
         # mouse tracking
@@ -29,26 +29,18 @@ class Annotator():
     
         
     def draw(self, screen: pygame.display):
-        # Create a temporary surface for cropping
-        cropped_surface = pygame.Surface(self.cropRect.size, pygame.SRCALPHA)
-
-        # Calculate the part of the scaled image to draw
         image_area = pygame.Rect(self.offset_x, self.offset_y, self.cropRect.width, self.cropRect.height)
-
-        # Draw the visible portion onto the cropped surface
-        cropped_surface.blit(self.scaled_image, (0, 0), area=image_area)
-
-        # draw the cropped surface to the screen
-        screen.blit(cropped_surface, self.cropRect.topleft)
+        screen.blit(self.scaled_image, self.cropRect.topleft, area=image_area)
 
     def update(self, event: pygame.event):
 
         # Start dragging
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.cropRect.collidepoint(event.pos):
+            if self.cropRect.collidepoint(event.pos) and event.button == 1:
                 self.dragging = True
                 self.last_mouse_pos = event.pos
-            
+        
+        # stop dragging
         elif event.type == pygame.MOUSEBUTTONUP:
             self.dragging = False
 
@@ -65,9 +57,12 @@ class Annotator():
 
             self.last_mouse_pos = event.pos
 
+        # zoom in and out
         elif event.type == pygame.MOUSEWHEEL:
             self.zoomAtCenter(event.y)
 
+    def screenToImage(self, screen_x, screen_y):
+        return (screen_x - self.cropRect.x + self.offset_x, screen_y - self.cropRect.y + self.offset_y)
 
     def zoomAtCenter(self, zoom_direction: int):
         """Zoom in or out, keeping the crop area centered."""

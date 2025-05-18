@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace MainWindowGUI
 {
     public partial class sheetMusicToMusicXML : Form
@@ -69,8 +71,9 @@ namespace MainWindowGUI
             {
                 using (annotator = new annotationGui())
                 {
-                    annotator.ShowDialog();
-                    while (annotator.DialogResult != DialogResult.OK) { }
+                    Process.Start("python", "annotationGui.py");
+                    // annotator.ShowDialog();
+                    // while (annotator.DialogResult != DialogResult.OK) { }
                 }
             } 
             else

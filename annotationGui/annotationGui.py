@@ -1,5 +1,6 @@
 import pygame
 from annotator import Annotator
+from component import Component
 from settings import *
 
 
@@ -12,7 +13,10 @@ class Screen():
         pygame.display.set_caption(caption)
 
         self.running = True
-        self.annotator = Annotator(image)
+        self.annotator: Annotator = Annotator(image)
+        self.components: Component = []
+
+        self.drawing = False
 
         
     def start(self):
@@ -25,6 +29,19 @@ class Screen():
         self.display.fill(WHITE)
         
         self.annotator.draw(self.display)
+
+        # Draw all components
+        for comp in self.components:
+            comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y)
+
+        # Draw current temp rectangle
+        if self.drawing and self.start_pos:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            end_pos = self.annotator.screenToImage(mouse_x, mouse_y)
+            temp_rect = createRect(self.start_pos, end_pos)
+            temp_comp = Component(temp_rect)
+            temp_comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y)
+
         
         pygame.display.update()
         
@@ -34,6 +51,23 @@ class Screen():
           for event in pygame.event.get():
             if event.type == pygame.QUIT:
               self.running = False
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+              if event.button == 3 and self.annotator.cropRect.collidepoint(event.pos):
+                self.start_pos = self.annotator.screenToImage(*event.pos)
+                self.drawing = True
+
+            elif event.type == pygame.MOUSEBUTTONUP:
+              if event.button == 3 and self.drawing:
+                end_pos = self.annotator.screenToImage(*event.pos)
+                rect = createRect(self.start_pos, end_pos)
+                self.components.append(Component(rect))
+                self.drawing = False
+                self.start_pos = None
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_z and pygame.key.get_mods() & pygame.KMOD_LCTRL:
+                    self.components.pop()
             
             self.annotator.update(event)
 

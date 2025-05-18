@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="annotationGui.py" />
     <Compile Include="annotator.py" />
+    <Compile Include="component.py" />
     <Compile Include="settings.py" />
   </ItemGroup>
   <ItemGroup>
