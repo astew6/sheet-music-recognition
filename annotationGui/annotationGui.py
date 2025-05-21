@@ -32,15 +32,15 @@ class Screen():
 
         # Draw all components
         for comp in self.components:
-            comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y)
+            comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y, self.annotator.zoom)
 
         # Draw current temp rectangle
         if self.drawing and self.start_pos:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             end_pos = self.annotator.screenToImage(mouse_x, mouse_y)
             temp_rect = createRect(self.start_pos, end_pos)
-            temp_comp = Component(temp_rect)
-            temp_comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y)
+            temp_comp = Component(temp_rect, self.annotator.zoom)
+            temp_comp.draw(self.display, self.annotator.cropRect, self.annotator.offset_x, self.annotator.offset_y, self.annotator.zoom)
 
         
         pygame.display.update()
@@ -61,12 +61,12 @@ class Screen():
               if event.button == 3 and self.drawing:
                 end_pos = self.annotator.screenToImage(*event.pos)
                 rect = createRect(self.start_pos, end_pos)
-                self.components.append(Component(rect))
+                self.components.append(Component(rect, self.annotator.zoom))
                 self.drawing = False
                 self.start_pos = None
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_z and pygame.key.get_mods() & pygame.KMOD_LCTRL:
+                if event.key == pygame.K_z and pygame.key.get_mods() & pygame.KMOD_LCTRL and self.components != []:
                     self.components.pop()
             
             self.annotator.update(event)

@@ -7,6 +7,7 @@ class Annotator():
     def __init__(self, image: str, bounds: tuple = ImageBounds):
         self.original_image: pygame.Surface = pygame.image.load(image).convert_alpha()
         self.zoom: float = 1.0
+        self.oldZoom: float = 1.0
         
         self.cropRect: pygame.Rect = pygame.rect.Rect(*bounds)
         self.draw_rect: pygame.Rect = pygame.Rect(0, 0, self.cropRect.width, self.cropRect.height)
@@ -66,7 +67,7 @@ class Annotator():
 
     def zoomAtCenter(self, zoom_direction: int):
         """Zoom in or out, keeping the crop area centered."""
-        old_zoom = self.zoom
+        self.oldZoom = self.zoom
         if zoom_direction > 0: zoom_factor = 1.1 
         else: zoom_factor = 0.9
         self.zoom *= zoom_factor
@@ -75,14 +76,13 @@ class Annotator():
         self.zoom: float = max(0.1, min(10, self.zoom))
 
         # Calculate zoom center relative to image
-        crop_center: tuple = (self.offset_x + self.cropRect.width // 2,
-                       self.offset_y + self.cropRect.height // 2)
+        crop_center: tuple = (self.offset_x + self.cropRect.width // 2, self.offset_y + self.cropRect.height // 2)
 
         # Update image scale
         self.updateScaledImage()
 
         # Adjust offset so zoom stays centered
-        new_crop_center: tuple = (int(crop_center[0] * self.zoom / old_zoom), int(crop_center[1] * self.zoom / old_zoom))
+        new_crop_center: tuple = (int(crop_center[0] * self.zoom / self.oldZoom), int(crop_center[1] * self.zoom / self.oldZoom))
 
         self.offset_x: int = new_crop_center[0] - self.cropRect.width // 2
         self.offset_y: int = new_crop_center[1] - self.cropRect.height // 2
