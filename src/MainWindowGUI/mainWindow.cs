@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace MainWindowGUI
 {
     public partial class sheetMusicToMusicXML : Form
@@ -5,6 +7,10 @@ namespace MainWindowGUI
         public string inputPath;
         public string outputPath;
         public imageEditor editor;
+        public annotationGui annotator;
+
+        public Image currentImage;
+
         public sheetMusicToMusicXML()
         {
             InitializeComponent();
@@ -40,16 +46,40 @@ namespace MainWindowGUI
 
         private void reviewEditButton_Click(object sender, EventArgs e)
         {
-            using (editor = new imageEditor())
+            if (inputPath != null)
             {
-                editor.ShowDialog();
-                while (editor.DialogResult != DialogResult.OK) { }
+                using (editor = new imageEditor())
+                {
+                    editor.ShowDialog();
+                    while (editor.DialogResult != DialogResult.OK) { }
+                }
+            } 
+            else
+            {
+                MessageBox.Show("Please Select an Image path before editing", "invalid image path", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void exportMusicXMLButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void annotateButton_Click(object sender, EventArgs e)
+        {
+            if (inputPath != null)
+            {
+                using (annotator = new annotationGui())
+                {
+                    Process.Start("python", "annotationGui.py");
+                    // annotator.ShowDialog();
+                    // while (annotator.DialogResult != DialogResult.OK) { }
+                }
+            } 
+            else
+            {
+                MessageBox.Show("Please Select an Image path and analyze before annotating", "invalid image path", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

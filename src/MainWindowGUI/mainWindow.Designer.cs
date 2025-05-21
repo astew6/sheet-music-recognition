@@ -140,6 +140,7 @@
             annotateButton.TabIndex = 1;
             annotateButton.Text = "Annotate";
             annotateButton.UseVisualStyleBackColor = true;
+            annotateButton.Click += annotateButton_Click;
             // 
             // progressIndicatorLabel
             // 
