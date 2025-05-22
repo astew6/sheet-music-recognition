@@ -2,7 +2,8 @@ import pygame
 from annotator import Annotator
 from component import Component
 from settings import *
-
+import json
+from pathlib import Path
 
 class Screen():
 
@@ -13,6 +14,7 @@ class Screen():
         pygame.display.set_caption(caption)
 
         self.running = True
+        self.filePath = image
         self.annotator: Annotator = Annotator(image)
         self.components: Component = []
 
@@ -20,10 +22,25 @@ class Screen():
 
         
     def start(self):
+        file_path = Path(self.filePath+".json")
 
-        # file loading here
+        if file_path.exists():
+            with open(self.filePath+".json", "r") as f:
+                componentDict = json.load(f)
+            for data in componentDict.values():
+                rect = pygame.Rect(data["x"], data["y"], data["width"], data["height"])
+                comp = Component(rect, 1.0, label=data.get("label", "Unnamed"))
+                self.components.append(comp)
 
         self.update()
+
+    def finish(self):
+        with open(self.filePath+".json", "w") as f:
+            componentsDict: dict = {}
+            for x, component in enumerate(self.components):
+                componentsDict[x] = component.export()
+
+            json.dump(componentsDict, f, indent=2)
 
     def draw(self):
         self.display.fill(WHITE)
@@ -51,6 +68,7 @@ class Screen():
           for event in pygame.event.get():
             if event.type == pygame.QUIT:
               self.running = False
+              self.finish()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
               if event.button == 3 and self.annotator.cropRect.collidepoint(event.pos):

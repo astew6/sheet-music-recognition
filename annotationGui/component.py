@@ -1,17 +1,19 @@
 from ast import Tuple
+import json
+import math
 import pygame
 
 from settings import *
 
 class Component:
 
-    def __init__(self, rect: pygame.Rect, originalZoom: float):
+    def __init__(self, rect: pygame.Rect, originalZoom: float, label="Unnamed"):
         self.x: int = rect.x
         self.y: int = rect.y
         self.width: int = rect.width
         self.height: int = rect.height
         self.initZoom: float = originalZoom
-        self.label = "Unnamed"
+        self.label = label
 
     def get_image_rect(self) -> pygame.Rect:
         return pygame.Rect(self.x, self.y, self.width, self.height)
@@ -26,12 +28,19 @@ class Component:
 
         screen_width = self.width * zoom
         screen_height = self.height * zoom
+
         rect = pygame.Rect(screen_x, screen_y, screen_width, screen_height)
 
         if crop_rect.colliderect(rect):
             pygame.draw.rect(screen, (255, 255, 0), rect, 2)
 
-    def export() -> str:
-        ...
-
+    def export(self) -> dict:
+        data = {
+            "label": self.label,
+            "x": math.floor(self.x / self.initZoom),
+            "y": math.floor(self.y / self.initZoom),
+            "width": math.floor(self.width / self.initZoom),
+            "height": math.floor(self.height / self.initZoom)
+            }
+        return data
 
