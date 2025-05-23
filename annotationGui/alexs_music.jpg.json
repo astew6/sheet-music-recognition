@@ -1,0 +1,128 @@
+{
+  "0": {
+    "label": "B",
+    "x": 272,
+    "y": 1470,
+    "width": 156,
+    "height": 262
+  },
+  "1": {
+    "label": "rest ting",
+    "x": 637,
+    "y": 736,
+    "width": 47,
+    "height": 99
+  },
+  "2": {
+    "label": "A#/Bb",
+    "x": 543,
+    "y": 710,
+    "width": 85,
+    "height": 128
+  },
+  "3": {
+    "label": "treble",
+    "x": 462,
+    "y": 695,
+    "width": 70,
+    "height": 180
+  },
+  "4": {
+    "label": "bar end",
+    "x": 929,
+    "y": 732,
+    "width": 20,
+    "height": 104
+  },
+  "5": {
+    "label": "Unnamed",
+    "x": 970,
+    "y": 765,
+    "width": 32,
+    "height": 25
+  },
+  "6": {
+    "label": "Unnamed",
+    "x": 1056,
+    "y": 734,
+    "width": 33,
+    "height": 83
+  },
+  "7": {
+    "label": "Unnamed",
+    "x": 1120,
+    "y": 783,
+    "width": 47,
+    "height": 90
+  },
+  "8": {
+    "label": "A",
+    "x": 1183,
+    "y": 727,
+    "width": 38,
+    "height": 143
+  },
+  "9": {
+    "label": "B",
+    "x": 1237,
+    "y": 710,
+    "width": 45,
+    "height": 141
+  },
+  "10": {
+    "label": "C",
+    "x": 1293,
+    "y": 714,
+    "width": 37,
+    "height": 115
+  },
+  "11": {
+    "label": "Unnamed",
+    "x": 1384,
+    "y": 700,
+    "width": 30,
+    "height": 55
+  },
+  "12": {
+    "label": "Unnamed",
+    "x": 1417,
+    "y": 716,
+    "width": 35,
+    "height": 105
+  },
+  "13": {
+    "label": "Unnamed",
+    "x": 1472,
+    "y": 703,
+    "width": 36,
+    "height": 117
+  },
+  "14": {
+    "label": "Unnamed",
+    "x": 1525,
+    "y": 701,
+    "width": 42,
+    "height": 114
+  },
+  "15": {
+    "label": "Unnamed",
+    "x": 1594,
+    "y": 701,
+    "width": 39,
+    "height": 119
+  },
+  "16": {
+    "label": "Unnamed",
+    "x": 1654,
+    "y": 716,
+    "width": 45,
+    "height": 101
+  },
+  "17": {
+    "label": "hi alex im a sigma",
+    "x": 1265,
+    "y": 1059,
+    "width": 128,
+    "height": 251
+  }
+}

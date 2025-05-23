@@ -14,6 +14,8 @@ class Component:
         self.height: int = rect.height
         self.initZoom: float = originalZoom
         self.label = label
+        self.rect = rect
+        self.color = YELLOW
 
     def get_image_rect(self) -> pygame.Rect:
         return pygame.Rect(self.x, self.y, self.width, self.height)
@@ -29,10 +31,14 @@ class Component:
         screen_width = self.width * zoom
         screen_height = self.height * zoom
 
-        rect = pygame.Rect(screen_x, screen_y, screen_width, screen_height)
+        self.rect = pygame.Rect(screen_x, screen_y, screen_width, screen_height)
 
-        if crop_rect.colliderect(rect):
-            pygame.draw.rect(screen, (255, 255, 0), rect, 2)
+        if crop_rect.colliderect(self.rect):
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+            
+            font = pygame.font.SysFont(None, 20)
+            label_surface = font.render(self.label, True, self.color)
+            screen.blit(label_surface, (self.rect.x, self.rect.y - 20))
 
     def export(self) -> dict:
         data = {
