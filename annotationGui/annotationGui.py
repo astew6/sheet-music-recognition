@@ -15,14 +15,7 @@ class Screen():
         self.display = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(caption)
 
-        self.manager = pygame_gui.UIManager((width, height))
-        self.notePicker = pygame_gui.elements.UIDropDownMenu(
-            options_list=VALID_NOTES,
-            starting_option="C",
-            relative_rect=pygame.Rect((10, 40), (200, 30)),
-            manager=self.manager
-        )
-
+        self.ui_init()
 
         self.running = True
         self.filePath = image
@@ -31,6 +24,22 @@ class Screen():
         self.currentComponent = None
 
         self.drawing = False
+
+    def ui_init(self):
+        self.manager = pygame_gui.UIManager((self.width, self.height))
+        
+        _label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((10, 40), (200, 30)),
+            text="Select Note Type:",
+            manager=self.manager
+        )
+
+        self.notePicker = pygame_gui.elements.UIDropDownMenu(
+            options_list=VALID_NOTES,
+            starting_option="C",
+            relative_rect=pygame.Rect((10, 70), (200, 30)),
+            manager=self.manager
+        )
 
         
     def start(self):

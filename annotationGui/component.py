@@ -1,5 +1,3 @@
-from ast import Tuple
-import json
 import math
 import pygame
 
@@ -18,7 +16,7 @@ class Component:
         self.color = YELLOW
 
     def get_image_rect(self) -> pygame.Rect:
-        return pygame.Rect(self.x, self.y, self.width, self.height)
+        return pygame.Rect(self.x, self.y, self.wdth, self.height)
 
     def draw(self, screen: pygame.Surface, crop_rect: pygame.Rect, offset_x: int, offset_y: int, zoom: float):
         if zoom == self.initZoom:
