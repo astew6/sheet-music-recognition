@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>60ea96d6-3801-4c0e-b58a-7df1c5e0852c</ProjectGuid>
+    <ProjectGuid>1bfa5aec-7f15-45a9-b225-93f62d452bf6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>annotationGui.py</StartupFile>
+    <StartupFile>MainWindowGui.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>annotationGui</Name>
-    <RootNamespace>annotationGui</RootNamespace>
+    <Name>MainWindowGui</Name>
+    <RootNamespace>MainWindowGui</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,14 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="annotationGui.py" />
-    <Compile Include="annotator.py" />
-    <Compile Include="component.py" />
-    <Compile Include="settings.py" />
+    <Compile Include="MainWindowGui.py" />
     <Compile Include="__init__.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="alexs_music.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
