@@ -1,7 +1,7 @@
 import pygame, pygame_gui
-from annotator import Annotator
-from component import Component
-from settings import *
+from .annotator import Annotator
+from .component import Component
+from .settings import *
 import json, sys
 from pathlib import Path
 

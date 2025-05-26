@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 
-from .. import Screen
+from ..annotationGui.annotationGui import Screen
 
 import tkinter as tk
 from tkinter import filedialog
