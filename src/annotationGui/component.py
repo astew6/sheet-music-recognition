@@ -1,7 +1,7 @@
 import math
 import pygame
 
-from settings import *
+from .settings import *
 
 class Component:
 
