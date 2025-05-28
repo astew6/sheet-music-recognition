@@ -5,13 +5,14 @@ from .settings import *
 
 class Component:
 
-    def __init__(self, rect: pygame.Rect, originalZoom: float, label="Unnamed"):
+    def __init__(self, rect: pygame.Rect, originalZoom: float, label="Unnamed", duration ='Unknown-Duration'):
         self.x: int = rect.x
         self.y: int = rect.y
         self.width: int = rect.width
         self.height: int = rect.height
         self.initZoom: float = originalZoom
         self.label = label
+        self.duration = duration
         self.rect = rect
         self.color = YELLOW
 
@@ -35,16 +36,24 @@ class Component:
             pygame.draw.rect(screen, self.color, self.rect, 2)
             
             font = pygame.font.SysFont(None, 20)
-            label_surface = font.render(self.label, True, self.color)
+            label_surface = font.render(self.label+", "+self.duration, True, self.color)
             screen.blit(label_surface, (self.rect.x, self.rect.y - 20))
+
+    def update(self):
+        if self.label in CLEF_TYPES:
+            self.duration = 'Clef'
+
+        if self.duration == 'Clef' and self.label not in CLEF_TYPES:
+            self.duration = "Unknown-Duration"
 
     def export(self) -> dict:
         data = {
             "label": self.label,
-            "x": math.floor(self.x / self.initZoom),
-            "y": math.floor(self.y / self.initZoom),
-            "width": math.floor(self.width / self.initZoom),
-            "height": math.floor(self.height / self.initZoom)
+            "duration": self.duration,
+            "x": self.x // self.initZoom,
+            "y": self.y // self.initZoom,
+            "width": self.width,
+            "height": self.height 
             }
         return data
 
