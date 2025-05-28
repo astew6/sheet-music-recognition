@@ -3,6 +3,7 @@ import pygame
 pygame.font.init()
 
 WHITE: tuple = (255,255,255)
+GREEN: tuple = (0,255,0)
 YELLOW: tuple = (255,255,0)
 RED: tuple = (255,0,0)
 

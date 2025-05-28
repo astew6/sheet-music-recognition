@@ -14,7 +14,7 @@ class Component:
         self.label = label
         self.duration = duration
         self.rect = rect
-        self.color = YELLOW
+        self.color = GREEN
 
     def get_image_rect(self) -> pygame.Rect:
         return pygame.Rect(self.x, self.y, self.wdth, self.height)

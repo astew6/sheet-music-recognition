@@ -16,50 +16,113 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sheet Music to MusicXML")
 
-manager = pygame_gui.UIManager((WIDTH, HEIGHT))
+manager = pygame_gui.UIManager((WIDTH, HEIGHT), "src/MainWindowGui/theme.json")
 
-setInputFile = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 10), (WIDTH-20, 50)),
-    text='Select Input File!',
+# Constants for layout
+MARGIN_X = 10
+BUTTON_WIDTH = 250
+BUTTON_HEIGHT = 50
+SECTION_GAP = 40
+SMALL_GAP = 20
+LABEL_HEIGHT = 30
+
+BACKGROUND_COLOR = (37, 41, 46)
+
+
+title_label = pygame_gui.elements.UILabel(
+    relative_rect=pygame.Rect((WIDTH//2 - 350, 20), (700, 90)),
+    text="SHEET MUSIC TO MUSICXML",
+    manager=manager,
+    object_id=pygame_gui.core.ObjectID(object_id='title_label')
+)
+
+# Main Container 
+main_container = pygame_gui.elements.UIPanel(
+    relative_rect=pygame.Rect((140, 100), (1000, 550)),
+    starting_height=1,
     manager=manager
 )
 
+# Top Buttons Container
+top_buttons = pygame_gui.elements.UIPanel(
+    relative_rect=pygame.Rect((20, 20), (960, 100)),
+    starting_height=2,
+    manager=manager,
+    container=main_container
+)
+
+setInputFile = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((0, 10), (460, 80)),
+    text='Upload Picture',
+    manager=manager,
+    container=top_buttons
+)
+setOutputFile = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((480, 10), (460, 80)),
+    text='Set Output File',
+    manager=manager,
+    container=top_buttons
+)
+
+# Input Path and Progress
 inputLabel = pygame_gui.elements.UITextBox(
-    relative_rect=pygame.Rect((10, 70), (WIDTH-20, 50)),
-    html_text="Please Select an Input file!",
-    manager=manager
+    relative_rect=pygame.Rect((20, 130), (960, 30)),
+    html_text='Input Path:',
+    manager=manager,
+    container=main_container
+)
+
+progress_bar = pygame_gui.elements.UIProgressBar(
+    relative_rect=pygame.Rect((20, 170), (960, 30)),
+    manager=manager,
+    container=main_container
+)
+
+# Middle Buttons - Analyze / Annotate 
+middle_buttons = pygame_gui.elements.UIPanel(
+    relative_rect=pygame.Rect((20, 220), (960, 100)),
+    starting_height=2,
+    manager=manager,
+    container=main_container
 )
 
 analyzeImage = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 130), (WIDTH-20, 50)),
-    text='Analyze Image (TBD!)',
-    manager=manager
+    relative_rect=pygame.Rect((0, 10), (460, 80)),
+    text='Analyze (TBD!)',
+    manager=manager,
+    container=middle_buttons
 )
 
 annotateFile = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 190), (WIDTH-20, 50)),
-    text='Annotate Image',
-    manager=manager
+    relative_rect=pygame.Rect((480, 10), (460, 80)),
+    text='Annotate',
+    manager=manager,
+    container=middle_buttons
 )
 
-setOutputFile = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 250), (WIDTH-20, 50)),
-    text='Select Output File',
-    manager=manager
-)
-
+# Output Path 
 outputLabel = pygame_gui.elements.UITextBox(
-    relative_rect=pygame.Rect((10, 310), (WIDTH-20, 50)),
-    html_text="Please Select an Output file!",
-    manager=manager
+    relative_rect=pygame.Rect((20, 340), (960, 30)),
+    html_text='Output Path:',
+    manager=manager,
+    container=main_container
 )
 
+# Bottom Buttons - Output Path / Export
+bottom_buttons = pygame_gui.elements.UIPanel(
+    relative_rect=pygame.Rect((20, 380), (960, 100)),
+    starting_height=2,
+    manager=manager,
+    container=main_container
+)
 
 exportXml = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 370), (WIDTH-20, 50)),
-    text='Export to MusicXML (TBD!)',
-    manager=manager
+    relative_rect=pygame.Rect((0, 10), (950, 80)),
+    text='Export MusicXML (TBD!)',
+    manager=manager,
+    container=bottom_buttons
 )
+
 
 noInputFilePopup = None
 
@@ -86,10 +149,10 @@ while running:
                         title="Select input image file"
                     )
                     if inputFilePath == '' :
-                        inputLabel.html_text = "Please Select an Output file!"
+                        inputLabel.html_text = "Input Path: "
                     else:
-                        inputLabel.html_text = inputFilePath
-                        inputLabel.rebuild()
+                        inputLabel.html_text = "Input Path: " + inputFilePath
+                    inputLabel.rebuild()
             
                 if event.ui_element == annotateFile:
                     if Path(inputFilePath).exists() and inputFilePath != '':
@@ -108,7 +171,10 @@ while running:
                         filetypes=[("XML files", "*.xml"), ("All files", "*.*")],
                         title="Select output file"
                     )
-                    outputLabel.html_text = outputFilePath
+                    if outputFilePath == '' :
+                        outputLabel.html_text = "Output Path: "
+                    else:
+                        outputLabel.html_text = "Output Path: " + outputFilePath
                     outputLabel.rebuild()
                 
             if event.type == pygame_gui.UI_WINDOW_CLOSE:
@@ -118,7 +184,7 @@ while running:
     
         manager.update(1/60)
 
-        screen.fill((255, 255, 255))  
+        screen.fill(BACKGROUND_COLOR)  
 
         manager.draw_ui(screen)
 
