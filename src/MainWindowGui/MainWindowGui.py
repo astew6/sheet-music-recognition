@@ -88,7 +88,7 @@ middle_buttons = pygame_gui.elements.UIPanel(
 
 analyzeImage = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((0, 10), (460, 80)),
-    text='Analyze',
+    text='Analyze (TBD!)',
     manager=manager,
     container=middle_buttons
 )
@@ -118,7 +118,7 @@ bottom_buttons = pygame_gui.elements.UIPanel(
 
 exportXml = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((0, 10), (950, 80)),
-    text='Export MusicXML',
+    text='Export MusicXML (TBD!)',
     manager=manager,
     container=bottom_buttons
 )
