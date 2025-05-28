@@ -5,7 +5,7 @@ from .settings import *
 
 class Component:
 
-    def __init__(self, rect: pygame.Rect, originalZoom: float, label="Unnamed", duration ='unlabled-note'):
+    def __init__(self, rect: pygame.Rect, originalZoom: float, label="Unnamed", duration ='Unknown-Duration'):
         self.x: int = rect.x
         self.y: int = rect.y
         self.width: int = rect.width
@@ -38,6 +38,13 @@ class Component:
             font = pygame.font.SysFont(None, 20)
             label_surface = font.render(self.label+", "+self.duration, True, self.color)
             screen.blit(label_surface, (self.rect.x, self.rect.y - 20))
+
+    def update(self):
+        if self.label in CLEF_TYPES:
+            self.duration = 'Clef'
+
+        if self.duration == 'Clef' and self.label not in CLEF_TYPES:
+            self.duration = "Unknown-Duration"
 
     def export(self) -> dict:
         data = {

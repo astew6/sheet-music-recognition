@@ -9,6 +9,7 @@ RED: tuple = (255,0,0)
 WIDTH: int = 1280
 HEIGHT: int = 720
 
+guiBounds: tuple = (0,10,300,HEIGHT-10)
 ImageBounds: tuple = (300,10,WIDTH-300-10,HEIGHT-10-10)
 
 def createRect(start, end) -> pygame.Rect:
@@ -22,7 +23,7 @@ def createRect(start, end) -> pygame.Rect:
 
 VALID_NOTES: list = [
     "C", "C#/Db", "D", "D#/Eb", "E", "F",
-    "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"
+    "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B", "Rest"
     ]
 
 VALID_DURATIONS: list = [
@@ -32,7 +33,7 @@ VALID_DURATIONS: list = [
         "eighth-note",
         "16th-note",
         "32nd-note",
-        "64th-note"
+        "64th-note",
     ]
 
 NOTE_NUM: dict = {
@@ -44,7 +45,22 @@ NOTE_NUM: dict = {
     "32nd-note": "1/32",
     "64th-note": "1/64"
     }
-    
+
+CLEF_TYPES: list = [
+        "treble",               # G clef on 2nd line
+        "french_violin",        # G clef on 1st line
+        "bass",                 # F clef on 4th line
+        "baritone_f",           # F clef on 3rd line (F version)
+        "subbass",              # F clef on 5th line
+        "alto",                 # C clef on 3rd line
+        "tenor",                # C clef on 4th line
+        "baritone_c",           # C clef on 5th line
+        "mezzo_soprano",        # C clef on 2nd line
+        "soprano",              # C clef on 1st line
+        "percussion",           # Neutral clef
+        "tab",                  # Tablature clef (for guitar/bass tab)
+    ]
+
 """
 musicxml_data = {
     "pitches": [

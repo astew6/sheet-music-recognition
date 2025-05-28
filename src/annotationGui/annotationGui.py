@@ -29,20 +29,20 @@ class Screen():
         self.manager = pygame_gui.UIManager((self.width, self.height))
         
         _label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((10, 40), (200, 30)),
+            relative_rect=pygame.Rect((guiBounds[2]//2-100, 40), (200, 30)),
             text="Select Note Type:",
             manager=self.manager
         )
 
         self.notePicker = pygame_gui.elements.UIDropDownMenu(
-            options_list=VALID_NOTES,
+            options_list=VALID_NOTES+CLEF_TYPES,
             starting_option="C",
-            relative_rect=pygame.Rect((10, 70), (200, 30)),
+            relative_rect=pygame.Rect((guiBounds[2]//2-100, 70), (200, 30)),
             manager=self.manager
         )
 
         _label2 = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect((10, 110), (200, 30)),
+            relative_rect=pygame.Rect((guiBounds[2]//2-100, 110), (200, 30)),
             text="Select Duration:",
             manager=self.manager
         )
@@ -50,7 +50,7 @@ class Screen():
         self.durationPicker = pygame_gui.elements.UIDropDownMenu(
             options_list=VALID_DURATIONS,
             starting_option="quarter-note",
-            relative_rect=pygame.Rect((10, 140), (200, 30)),
+            relative_rect=pygame.Rect((guiBounds[2]//2-100, 140), (200, 30)),
             manager=self.manager
         )
 
@@ -123,7 +123,11 @@ class Screen():
                 if event.button == 3 and self.drawing:
                     end_pos = self.annotator.screenToImage(*event.pos)
                     rect = createRect(self.start_pos, end_pos)
-                    self.components.append(Component(rect, self.annotator.zoom))
+                    if self.currentComponent: self.currentComponent.color = YELLOW
+                    self.currentComponent = Component(rect, self.annotator.zoom)
+                    self.currentComponent.color = RED
+
+                    self.components.append(self.currentComponent)
                     self.drawing = False
                     self.start_pos = None
 
@@ -148,6 +152,9 @@ class Screen():
                 
             self.manager.process_events(event)
             self.annotator.update(event)
+
+        for component in self.components:
+            component.update()
             
    
 def main(imgPath: str):
