@@ -24,6 +24,26 @@ VALID_NOTES: list = [
     "C", "C#/Db", "D", "D#/Eb", "E", "F",
     "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"
     ]
+
+VALID_DURATIONS: list = [
+        "whole-note",      
+        "half-note",
+        "quarter-note",
+        "eighth-note",
+        "16th-note",
+        "32nd-note",
+        "64th-note"
+    ]
+
+NOTE_NUM: dict = {
+    "whole-note": "1",      
+    "half-note": "1/2",
+    "quarter-note": "1/4",
+    "eighth-note": "1/8",
+    "16th-note": "1/16",
+    "32nd-note": "1/32",
+    "64th-note": "1/64"
+    }
     
 """
 musicxml_data = {

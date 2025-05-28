@@ -1,6 +1,6 @@
+from pathlib import Path
 import pygame
 import pygame_gui
-from multiprocessing import Process
 
 from ..annotationGui.annotationGui import Screen
 from ..annotationGui.settings import *
@@ -24,20 +24,47 @@ setInputFile = pygame_gui.elements.UIButton(
     manager=manager
 )
 
-annotateFile = pygame_gui.elements.UIButton(
+inputLabel = pygame_gui.elements.UITextBox(
     relative_rect=pygame.Rect((10, 70), (WIDTH-20, 50)),
-    text='Annotate file',
+    html_text="Please Select an Input file!",
+    manager=manager
+)
+
+analyzeImage = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((10, 130), (WIDTH-20, 50)),
+    text='Analyze Image (TBD!)',
+    manager=manager
+)
+
+annotateFile = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((10, 190), (WIDTH-20, 50)),
+    text='Annotate Image',
     manager=manager
 )
 
 setOutputFile = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 130), (WIDTH-20, 50)),
-    text='select output file',
+    relative_rect=pygame.Rect((10, 250), (WIDTH-20, 50)),
+    text='Select Output File',
     manager=manager
 )
 
-inputFilePath = None
-outputFilePath = None
+outputLabel = pygame_gui.elements.UITextBox(
+    relative_rect=pygame.Rect((10, 310), (WIDTH-20, 50)),
+    html_text="Please Select an Output file!",
+    manager=manager
+)
+
+
+exportXml = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((10, 370), (WIDTH-20, 50)),
+    text='Export to MusicXML (TBD!)',
+    manager=manager
+)
+
+noInputFilePopup = None
+
+inputFilePath = " "
+outputFilePath = " "
 
 state = 'main'
 running = True
@@ -58,18 +85,35 @@ while running:
                         ],
                         title="Select input image file"
                     )
-                    print(inputFilePath)
+                    if inputFilePath == '' :
+                        inputLabel.html_text = "Please Select an Output file!"
+                    else:
+                        inputLabel.html_text = inputFilePath
+                        inputLabel.rebuild()
             
-                if event.ui_element == annotateFile and inputFilePath != '':
-                    state = 'annotate'
+                if event.ui_element == annotateFile:
+                    if Path(inputFilePath).exists() and inputFilePath != '':
+                        state = 'annotate'
+                    else:
+                        noInputFilePopup = pygame_gui.windows.UIMessageWindow(
+                            rect=pygame.Rect((WIDTH/2-300, HEIGHT/2-300), (300, 200)),
+                            window_title='No Input File Selected',
+                            html_message='Please Select an Input File!',
+                            manager=manager
+                        )
             
                 if event.ui_element == setOutputFile:
                     outputFilePath = filedialog.asksaveasfilename(
-                        defaultextension=".xml",  # or whatever extension you want
+                        defaultextension=".xml", 
                         filetypes=[("XML files", "*.xml"), ("All files", "*.*")],
                         title="Select output file"
                     )
-                    print(outputFilePath)
+                    outputLabel.html_text = outputFilePath
+                    outputLabel.rebuild()
+                
+            if event.type == pygame_gui.UI_WINDOW_CLOSE:
+                if event.ui_element == noInputFilePopup:
+                    noInputFilePopup = None  
 
     
         manager.update(1/60)
@@ -88,6 +132,9 @@ while running:
             annotateGui.draw()
 
         state = 'main'
+
+    elif state == "export":
+        pass
     
 
 pygame.quit()

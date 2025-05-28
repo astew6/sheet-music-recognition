@@ -2,7 +2,7 @@ import pygame, pygame_gui
 from .annotator import Annotator
 from .component import Component
 from .settings import *
-import json, sys
+import json
 from pathlib import Path
 
 class Screen():
@@ -41,6 +41,21 @@ class Screen():
             manager=self.manager
         )
 
+        _label2 = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((10, 110), (200, 30)),
+            text="Select Duration:",
+            manager=self.manager
+        )
+
+        self.durationPicker = pygame_gui.elements.UIDropDownMenu(
+            options_list=VALID_DURATIONS,
+            starting_option="quarter-note",
+            relative_rect=pygame.Rect((10, 140), (200, 30)),
+            manager=self.manager
+        )
+
+
+
         
     def start(self):
         file_path = Path(self.filePath)
@@ -52,7 +67,7 @@ class Screen():
                 componentDict = json.load(f)
             for data in componentDict.values():
                 rect = pygame.Rect(data["x"], data["y"], data["width"], data["height"])
-                comp = Component(rect, 1.0, label=data.get("label", "Unnamed"))
+                comp = Component(rect, 1.0, label=data.get("label", "Unnamed"), duration=data.get("duration", "Unlabed-note"))
                 self.components.append(comp)
 
     def finish(self):
@@ -124,6 +139,10 @@ class Screen():
                 if event.ui_element == self.notePicker:
                     if self.currentComponent:
                         self.currentComponent.label = event.text
+
+                if event.ui_element == self.durationPicker:
+                    if self.currentComponent:
+                        self.currentComponent.duration = NOTE_NUM[event.text]
 
                         
                 
