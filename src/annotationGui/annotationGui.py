@@ -114,8 +114,8 @@ class Screen():
 
                 if event.button == 1:
                     for component in self.components: 
-                        if component.rect.collidepoint(event.pos):
-                            if self.currentComponent: self.currentComponent.color = YELLOW
+                        if component.rect.collidepoint(event.pos) and component.rect.colliderect(self.annotator.cropRect):
+                            if self.currentComponent: self.currentComponent.color = GREEN
                             self.currentComponent = component
                             self.currentComponent.color = RED
 
@@ -123,7 +123,7 @@ class Screen():
                 if event.button == 3 and self.drawing:
                     end_pos = self.annotator.screenToImage(*event.pos)
                     rect = createRect(self.start_pos, end_pos)
-                    if self.currentComponent: self.currentComponent.color = YELLOW
+                    if self.currentComponent: self.currentComponent.color = GREEN
                     self.currentComponent = Component(rect, self.annotator.zoom)
                     self.currentComponent.color = RED
 
