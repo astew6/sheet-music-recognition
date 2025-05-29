@@ -37,7 +37,11 @@ class Component:
             
             font = pygame.font.SysFont(None, 20)
             label_surface = font.render(self.label+", "+self.duration, True, self.color)
+            label_rect = pygame.Rect(self.rect.x, self.rect.y-23, label_surface.get_rect().width+3, label_surface.get_rect().height+3)
+            
+            pygame.draw.rect(screen, (0,0,0), label_rect)
             screen.blit(label_surface, (self.rect.x, self.rect.y - 20))
+            
 
     def update(self):
         if self.label in CLEF_TYPES:
