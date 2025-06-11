@@ -5,6 +5,9 @@ import pygame_gui
 from ..annotationGui.annotationGui import Screen
 from ..annotationGui.settings import *
 
+from ..exportMusicXML.decipherNotes import decipherNotes
+from ..exportMusicXML.exportMusicXML import exportXML
+
 import tkinter as tk
 from tkinter import filedialog
 
@@ -126,8 +129,16 @@ exportXml = pygame_gui.elements.UIButton(
 
 noInputFilePopup = None
 
-inputFilePath = " "
-outputFilePath = " "
+inputFilePath = ""
+outputFilePath = ""
+
+def createPopup(title: str, text: str):
+    return pygame_gui.windows.UIMessageWindow(
+        rect=pygame.Rect((WIDTH/2-300, HEIGHT/2-300), (300, 200)),
+        window_title=title,
+        html_message=text,
+        manager=manager
+    )
 
 state = 'main'
 running = True
@@ -158,12 +169,7 @@ while running:
                     if Path(inputFilePath).exists() and inputFilePath != '':
                         state = 'annotate'
                     else:
-                        noInputFilePopup = pygame_gui.windows.UIMessageWindow(
-                            rect=pygame.Rect((WIDTH/2-300, HEIGHT/2-300), (300, 200)),
-                            window_title='No Input File Selected',
-                            html_message='Please Select an Input File!',
-                            manager=manager
-                        )
+                        noInputFilePopup = createPopup('No Input File Selected', 'Please Select an Input File!')
             
                 if event.ui_element == setOutputFile:
                     outputFilePath = filedialog.asksaveasfilename(
@@ -176,6 +182,25 @@ while running:
                     else:
                         outputLabel.html_text = "Output Path: " + outputFilePath
                     outputLabel.rebuild()
+
+
+                if event.ui_element == analyzeImage:
+                    if Path(inputFilePath).exists() and inputFilePath != '':
+                        #
+                        # analyzing image code
+                        #
+                    
+                        decipherNotes(inputFilePath)
+                        analyzingFinished = createPopup('Image Analyzing', 'Image Analyzing has finished')
+                    else:
+                        noInputFilePopup = createPopup('No Input File Selected', 'Please Select an Input File!')
+
+                if event.ui_element == exportXml:
+                    if outputFilePath != '':
+                        exportXML(inputFilePath, outputFilePath)
+                        exportedPopup = createPopup('Exported To MusicXML', f'MusicXML file has been created at {outputFilePath}')
+                    else:
+                        noOutputFilePopup = createPopup('No Output File Selected', 'Please Select an Output MusicXML File!')
                 
             if event.type == pygame_gui.UI_WINDOW_CLOSE:
                 if event.ui_element == noInputFilePopup:
@@ -198,6 +223,7 @@ while running:
             annotateGui.draw()
 
         state = 'main'
+        decipherNotes(inputFilePath)
 
     elif state == "export":
         pass
