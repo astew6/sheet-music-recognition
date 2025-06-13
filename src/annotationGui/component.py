@@ -36,7 +36,7 @@ class Component:
             pygame.draw.rect(screen, self.color, self.rect, 2)
             
             font = pygame.font.SysFont(None, 20)
-            label_surface = font.render(self.label+", "+self.duration, True, self.color)
+            label_surface = font.render(f"{self.label} {self.duration}", True, self.color)
             label_rect = pygame.Rect(self.rect.x, self.rect.y-23, label_surface.get_rect().width+3, label_surface.get_rect().height+3)
             
             pygame.draw.rect(screen, (0,0,0), label_rect)
@@ -49,6 +49,9 @@ class Component:
 
         if self.duration == 'Clef' and self.label not in CLEF_TYPES:
             self.duration = "Unknown-Duration"
+
+        if self.label == "Horizontal-Barline" or self.label == "Vertical-Barline":
+            self.duration = ""
 
     def export(self) -> dict:
         data = {

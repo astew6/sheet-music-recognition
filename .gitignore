@@ -5,6 +5,7 @@
 
 # Sarvesh's gitignores:
 temp/
+.venv/
 
 # User-specific files
 *.rsuser
