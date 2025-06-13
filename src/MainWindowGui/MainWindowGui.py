@@ -31,7 +31,7 @@ LABEL_HEIGHT = 30
 
 BACKGROUND_COLOR = (37, 41, 46)
 
-
+# Title label at top of screen
 title_label = pygame_gui.elements.UILabel(
     relative_rect=pygame.Rect((WIDTH//2 - 350, 20), (700, 90)),
     text="SHEET MUSIC TO MUSICXML",

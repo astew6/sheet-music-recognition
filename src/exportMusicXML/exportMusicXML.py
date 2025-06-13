@@ -4,14 +4,8 @@ from .settings import *
 from .decipherNotes import *
 from music21 import stream, note, bar, meter, clef, key
 
-
-def getValues(values, items):
-    return [v for v in values if values[v]['label'] in items]
-
-def sortValues(items, key):
-    return sorted(items, key=lambda x: x[key])
-
 def noteToPitch(label):
+    # match json output notes to musicXMl readable notes
     pitch_map = {
         'E': 'E4',
         'F': 'F4',
@@ -23,12 +17,11 @@ def noteToPitch(label):
         'E': 'E5',
         'F': 'F5'
     }
-    return pitch_map.get(label.upper(), 'C4')  # default fallback
+    return pitch_map.get(label.upper(), 'C4')  # default note is c4
 
 
 def exportXML(filePath, outputFilePath):
     values = loadJson(filePath)
-    # hLines = sortItems(getValues(values, ['Horizontal-Barline']), 'y')
     vLines = sortItems(getItems(values, ['Vertical-Barline']), 'x')
     notes = sortItems(getItems(values, NOTES), 'x')
 
@@ -73,8 +66,3 @@ def get_duration(label):
     else:
         return 'quarter'  # default fallback
     
-
-if __name__ == "__main__":
-    # exportXML("alexs_music.jpg")
-
-    decipherNotes("alexs_music.jpg")
